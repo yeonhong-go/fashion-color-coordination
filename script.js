@@ -47,18 +47,28 @@ document.getElementById('topColor').addEventListener('change', function () {
 
   if (!selected) return;
 
-  // 하의 추천
+  // 하의 색상 리스트
   recommendations[selected].forEach(color => {
     const li = document.createElement('li');
-    li.innerHTML = `<span class="color-circle" style="background-color: ${colorMap[color].hex}"></span>${colorMap[color].label}`;
+    li.innerHTML = `<span class="color-circle" style="background-color:${colorMap[color].hex}"></span><span>${colorMap[color].label}</span>`;
+    li.onclick = () => updateSilhouette('bottom', colorMap[color].hex);
     bottomList.appendChild(li);
   });
 
-  // 추가 아이템 추천
+  // 옵션 아이템 리스트
   extras[selected].forEach((color, idx) => {
-    const itemNames = ["신발", "자켓", "모자"];
+    const parts = ['shoes', 'jacket', 'hat'];
+    const labels = ['신발', '자켓', '모자'];
     const li = document.createElement('li');
-    li.innerHTML = `<span class="color-circle" style="background-color: ${colorMap[color].hex}"></span>${itemNames[idx]}: ${colorMap[color].label}`;
+    li.innerHTML = `<span class="color-circle" style="background-color:${colorMap[color].hex}"></span><span>${labels[idx]}: ${colorMap[color].label}</span>`;
+    li.onclick = () => updateSilhouette(parts[idx], colorMap[color].hex);
     extraList.appendChild(li);
   });
+
+  // 상의 색상 적용
+  updateSilhouette('top', colorMap[selected].hex);
 });
+
+function updateSilhouette(partId, colorHex) {
+  document.getElementById(partId).style.backgroundColor = colorHex;
+}
