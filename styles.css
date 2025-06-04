@@ -1,19 +1,31 @@
 body {
+  margin: 0;
   font-family: 'Arial', sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
-  padding: 20px;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-pane {
+  width: 50%;
+  background-color: #f8f8f8;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.right-pane {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
 }
 
 .section {
-  margin: 20px auto;
-  width: 90%;
-  max-width: 500px;
-}
-
-label {
-  font-weight: bold;
-  font-size: 18px;
+  margin-top: 20px;
 }
 
 select {
@@ -22,25 +34,41 @@ select {
   margin-left: 10px;
 }
 
-ul {
+.color-list {
   list-style: none;
   padding: 0;
 }
 
-li {
-  background-color: white;
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: left;
+.color-list li {
   display: flex;
   align-items: center;
+  margin-top: 8px;
 }
 
 .color-circle {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 8px;
   border: 1px solid #ccc;
 }
+
+#silhouette {
+  position: relative;
+  width: 200px;
+  height: 500px;
+  background: url('https://i.imgur.com/8r0XYXy.png') no-repeat center center;
+  background-size: contain;
+}
+
+.part {
+  position: absolute;
+  opacity: 0.6;
+}
+
+/* 임의의 위치 정의 (예시는 이미지에 따라 조정 필요) */
+#hat    { top: 10px;  left: 65px;  width: 70px; height: 40px;  }
+#jacket { top: 100px; left: 30px;  width: 140px; height: 180px; }
+#top    { top: 110px; left: 50px;  width: 100px; height: 80px;  }
+#bottom { top: 280px; left: 50px;  width: 100px; height: 170px; }
+#shoes  { top: 460px; left: 50px;  width: 100px; height: 30px;  }
