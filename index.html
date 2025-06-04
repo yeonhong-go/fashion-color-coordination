@@ -6,33 +6,46 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>👕 남성 옷 색상 코디 추천</h1>
+  <div class="container">
+    <div class="left-pane">
+      <h1>👕 남성 옷 색상 코디 추천</h1>
 
-  <div class="section">
-    <label for="topColor">상의 색상:</label>
-    <select id="topColor">
-      <option value="">-- 색상 선택 --</option>
-      <option value="black">검정</option>
-      <option value="white">흰색</option>
-      <option value="navy">네이비</option>
-      <option value="blue">파란색</option>
-      <option value="green">녹색</option>
-      <option value="yellow">노란색</option>
-      <option value="pink">핑크</option>
-      <option value="red">레드(버건디)</option>
-    </select>
+      <div class="section">
+        <label for="topColor">상의 색상:</label>
+        <select id="topColor">
+          <option value="">-- 색상 선택 --</option>
+          <option value="black">검정</option>
+          <option value="white">흰색</option>
+          <option value="navy">네이비</option>
+          <option value="blue">파란색</option>
+          <option value="green">녹색</option>
+          <option value="yellow">노란색</option>
+          <option value="pink">핑크</option>
+          <option value="red">레드(버건디)</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <label for="bottomColor">하의 선택:</label>
+        <ul id="bottomRecommendations" class="color-list"></ul>
+      </div>
+
+      <div class="section">
+        <label for="extras">추가 아이템 선택:</label>
+        <ul id="extraRecommendations" class="color-list"></ul>
+      </div>
+    </div>
+
+    <div class="right-pane">
+      <div id="silhouette">
+        <div id="hat" class="part"></div>
+        <div id="jacket" class="part"></div>
+        <div id="top" class="part"></div>
+        <div id="bottom" class="part"></div>
+        <div id="shoes" class="part"></div>
+      </div>
+    </div>
   </div>
-
-  <div class="section">
-    <label>하의 추천:</label>
-    <ul id="bottomRecommendations"></ul>
-  </div>
-
-  <div class="section">
-    <label>추가 아이템 추천:</label>
-    <ul id="extraRecommendations"></ul>
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
