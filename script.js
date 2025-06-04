@@ -15,60 +15,99 @@ const colorMap = {
   skyblue: { label: "하늘색", hex: "#87CEEB" }
 };
 
+// 추천 데이터: 상의 색상에 따른 하의 및 옵션 추천과 적합도
 const recommendations = {
-  black: ["gray", "beige", "blue"],
-  white: ["black", "navy", "khaki"],
-  navy: ["white", "gray", "beige"],
-  blue: ["white", "gray", "khaki"],
-  green: ["white", "beige", "gray"],
-  yellow: ["navy", "white", "gray"],
-  pink: ["gray", "ivory", "white"],
-  red: ["black", "gray", "beige"]
+  black: {
+    bottom: [
+      { color: "gray", score: 90 },
+      { color: "beige", score: 85 },
+      { color: "blue", score: 80 }
+    ],
+    shoes: [
+      { color: "white", score: 90 },
+      { color: "gray", score: 85 },
+      { color: "black", score: 80 }
+    ],
+    hat: [
+      { color: "white", score: 85 },
+      { color: "gray", score: 80 },
+      { color: "black", score: 75 }
+    ],
+    jacket: [
+      { color: "gray", score: 90 },
+      { color: "navy", score: 85 },
+      { color: "beige", score: 80 }
+    ]
+  },
+  white: {
+    bottom: [
+      { color: "black", score: 90 },
+      { color: "navy", score: 85 },
+      { color: "khaki", score: 80 }
+    ],
+    shoes: [
+      { color: "black", score: 90 },
+      { color: "navy", score: 85 },
+      { color: "gray", score: 80 }
+    ],
+    hat: [
+      { color: "black", score: 85 },
+      { color: "navy", score: 80 },
+      { color: "gray", score: 75 }
+    ],
+    jacket: [
+      { color: "navy", score: 90 },
+      { color: "gray", score: 85 },
+      { color: "khaki", score: 80 }
+    ]
+  },
+  // 추가 상의 색상에 대한 추천 데이터를 여기에 추가하세요
 };
 
-const extras = {
-  black: ["white", "gray", "black"],
-  white: ["black", "navy", "gray"],
-  navy: ["white", "khaki", "beige"],
-  blue: ["white", "gray", "ivory"],
-  green: ["brown", "beige", "white"],
-  yellow: ["white", "gray", "navy"],
-  pink: ["ivory", "gray", "white"],
-  red: ["gray", "white", "black"]
-};
+const topColorPalette = document.getElementById('topColorPalette');
+const bottomRecommendations = document.getElementById('bottomRecommendations');
+const shoesRecommendations = document.getElementById('shoesRecommendations');
+const hatRecommendations = document.getElementById('hatRecommendations');
+const jacketRecommendations = document.getElementById('jacketRecommendations');
 
-document.getElementById('topColor').addEventListener('change', function () {
-  const selected = this.value;
-  const bottomList = document.getElementById('bottomRecommendations');
-  const extraList = document.getElementById('extraRecommendations');
-
-  bottomList.innerHTML = "";
-  extraList.innerHTML = "";
-
-  if (!selected) return;
-
-  // 하의 색상 리스트
-  recommendations[selected].forEach(color => {
-    const li = document.createElement('li');
-    li.innerHTML = `<span class="color-circle" style="background-color:${colorMap[color].hex}"></span><span>${colorMap[color].label}</span>`;
-    li.onclick = () => updateSilhouette('bottom', colorMap[color].hex);
-    bottomList.appendChild(li);
+function createColorSwatches() {
+  Object.keys(colorMap).forEach(colorKey => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.style.backgroundColor = colorMap[colorKey].hex;
+    swatch.title = colorMap[colorKey].label;
+    swatch.addEventListener('click', () => {
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      swatch.classList.add('selected');
+      updateRecommendations(colorKey);
+    });
+    topColorPalette.appendChild(swatch);
   });
-
-  // 옵션 아이템 리스트
-  extras[selected].forEach((color, idx) => {
-    const parts = ['shoes', 'jacket', 'hat'];
-    const labels = ['신발', '자켓', '모자'];
-    const li = document.createElement('li');
-    li.innerHTML = `<span class="color-circle" style="background-color:${colorMap[color].hex}"></span><span>${labels[idx]}: ${colorMap[color].label}</span>`;
-    li.onclick = () => updateSilhouette(parts[idx], colorMap[color].hex);
-    extraList.appendChild(li);
-  });
-
-  // 상의 색상 적용
-  updateSilhouette('top', colorMap[selected].hex);
-});
-
-function updateSilhouette(partId, colorHex) {
-  document.getElementById(partId).style.backgroundColor = colorHex;
 }
+
+function updateRecommendations(topColor) {
+  const rec = recommendations[topColor];
+  if (!rec) {
+    bottomRecommendations.innerHTML = '<li>추천 데이터가 없습니다.</li>';
+    shoesRecommendations.innerHTML = '<li>추천 데이터가 없습니다.</li>';
+    hatRecommendations.innerHTML = '<li>추천 데이터가 없습니다.</li>';
+    jacketRecommendations.innerHTML = '<li>추천 데이터가 없습니다.</li>';
+    return;
+  }
+
+  function renderList(container, items) {
+    container.innerHTML = '';
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="color-circle" style="background-color:${colorMap[item.color].hex}"></span>${colorMap[item.color].label} - ${item.score}%`;
+      container.appendChild(li);
+    });
+  }
+
+  renderList(bottomRecommendations, rec.bottom);
+  renderList(shoesRecommendations, rec.shoes);
+  renderList(hatRecommendations, rec.hat);
+  renderList(jacketRecommendations, rec.jacket);
+}
+
+createColorSwatches();
