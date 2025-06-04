@@ -1,48 +1,53 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
+  background-color: #f8f8f8;
 }
 
 .container {
-  display: flex;
-  height: 100vh;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #ffffff;
 }
 
-.left-pane {
-  width: 50%;
-  background-color: #f8f8f8;
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-.right-pane {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border-left: 1px solid #ccc;
+h1 {
+  text-align: center;
 }
 
 .section {
   margin-top: 20px;
 }
 
-select {
-  padding: 8px;
-  font-size: 16px;
-  margin-left: 10px;
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
+
+.color-swatch.selected {
+  border: 3px solid #000;
 }
 
 .color-list {
   list-style: none;
   padding: 0;
+  margin-top: 10px;
 }
 
 .color-list li {
   display: flex;
   align-items: center;
-  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .color-circle {
@@ -53,22 +58,8 @@ select {
   border: 1px solid #ccc;
 }
 
-#silhouette {
-  position: relative;
-  width: 200px;
-  height: 500px;
-  background: url('https://i.imgur.com/8r0XYXy.png') no-repeat center center;
-  background-size: contain;
+@media (max-width: 600px) {
+  .color-palette {
+    justify-content: center;
+  }
 }
-
-.part {
-  position: absolute;
-  opacity: 0.6;
-}
-
-/* 임의의 위치 정의 (예시는 이미지에 따라 조정 필요) */
-#hat    { top: 10px;  left: 65px;  width: 70px; height: 40px;  }
-#jacket { top: 100px; left: 30px;  width: 140px; height: 180px; }
-#top    { top: 110px; left: 50px;  width: 100px; height: 80px;  }
-#bottom { top: 280px; left: 50px;  width: 100px; height: 170px; }
-#shoes  { top: 460px; left: 50px;  width: 100px; height: 30px;  }
